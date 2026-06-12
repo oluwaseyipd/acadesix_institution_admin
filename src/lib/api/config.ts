@@ -3,6 +3,10 @@ const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL ||
   "http://localhost:8000";
 
+if (typeof window !== "undefined") {
+  console.log("[API Configuration] Base URL is:", API_BASE_URL);
+}
+
 export const API_CONFIG = {
   BASE_URL: API_BASE_URL,
   TIMEOUT: 30000,
