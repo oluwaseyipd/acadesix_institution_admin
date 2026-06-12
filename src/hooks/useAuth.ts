@@ -133,5 +133,95 @@ export const useAuth = () => {
     }
   }, [setUser, router]);
 
-  return { user, loading, error, login, logout, refreshUser };
+  const getGoogleAuthUrl = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const { data } = await apiClient.get(API_ENDPOINTS.AUTH.GOOGLE_URL, {
+        params: { role: "admin" }
+      });
+      if (data?.url) {
+        window.location.href = data.url;
+      }
+    } catch (err: any) {
+      const errorMsg = err.response?.data?.detail || "Failed to initiate Google authentication.";
+      setError(errorMsg);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const handleGoogleCallback = useCallback(async (code: string) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const { data } = await apiClient.post(API_ENDPOINTS.AUTH.GOOGLE_CALLBACK, { code });
+
+      if (data.registered === false) {
+        throw new Error("You must complete your platform registration first.");
+      }
+
+      const role = data.user?.role;
+      const isStaff = data.user?.is_staff || data.user?.is_superuser;
+      const university = data.user?.university;
+
+      const hasAccess = role === "admin" || (role === "lecturer" && isStaff);
+
+      if (!hasAccess) {
+        throw new Error("You do not have institution admin permissions.");
+      }
+
+      if (!university) {
+        throw new Error("This admin account is not assigned to any institution.");
+      }
+
+      // Store tokens
+      if (typeof window !== "undefined") {
+        localStorage.setItem("access_token", data.access);
+        localStorage.setItem("refresh_token", data.refresh);
+      }
+      setAuthToken(data.access);
+
+      const authUser: AuthUser = {
+        id: data.user.id,
+        email: data.user.email,
+        role: data.user.role,
+        first_name: data.user.first_name || "",
+        last_name: data.user.last_name || "",
+        is_staff: data.user.is_staff || false,
+        is_superuser: data.user.is_superuser || false,
+        university: {
+          id: university.id,
+          name: university.name,
+          code: university.code || null,
+        },
+      };
+
+      setUser(authUser);
+      router.push("/dashboard");
+      return { success: true };
+    } catch (err: any) {
+      const errorMsg =
+        err.response?.data?.detail ||
+        err.message ||
+        "Google authentication failed.";
+      setError(errorMsg);
+      clearAuthToken();
+      setUser(null);
+      return { success: false, error: errorMsg };
+    } finally {
+      setLoading(false);
+    }
+  }, [router, setUser]);
+
+  return {
+    user,
+    loading,
+    error,
+    login,
+    logout,
+    refreshUser,
+    getGoogleAuthUrl,
+    handleGoogleCallback,
+  };
 };

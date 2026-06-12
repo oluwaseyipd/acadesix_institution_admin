@@ -14,6 +14,8 @@ export const API_ENDPOINTS = {
     LOGOUT: "/api/auth/logout/",
     REFRESH: "/api/auth/token/refresh/",
     ME: "/api/auth/me/",
+    GOOGLE_URL: "/api/auth/google/university/",
+    GOOGLE_CALLBACK: "/api/auth/google/callback/",
   },
   ADMIN: {
     USERS: "/api/admin/users/",
