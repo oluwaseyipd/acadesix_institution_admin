@@ -41,7 +41,12 @@ export default function LoginPage() {
       return;
     }
 
-    const { success, error } = await login(formData);
+    const normalizedCredentials = {
+      email: formData.email.trim().toLowerCase(),
+      password: formData.password,
+    };
+
+    const { success, error } = await login(normalizedCredentials);
     if (!success && error) {
       setLocalError(error);
     }

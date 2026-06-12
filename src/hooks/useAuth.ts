@@ -33,7 +33,10 @@ export const useAuth = () => {
         throw new Error("You do not have institution admin permissions.");
       }
 
-      if (!university) {
+      const universityId = typeof university === "string" ? university : university?.id;
+      const universityName = typeof university === "string" ? data?.user?.university_name : university?.name;
+
+      if (!universityId) {
         throw new Error("This admin account is not assigned to any institution.");
       }
 
@@ -54,9 +57,9 @@ export const useAuth = () => {
         is_staff: data.user.is_staff || false,
         is_superuser: data.user.is_superuser || false,
         university: {
-          id: university.id,
-          name: university.name,
-          code: university.code || null,
+          id: universityId,
+          name: universityName || "Institution",
+          code: typeof university === "string" ? null : (university?.code || null),
         },
       };
 
@@ -171,7 +174,10 @@ export const useAuth = () => {
         throw new Error("You do not have institution admin permissions.");
       }
 
-      if (!university) {
+      const universityId = typeof university === "string" ? university : university?.id;
+      const universityName = typeof university === "string" ? data?.user?.university_name : university?.name;
+
+      if (!universityId) {
         throw new Error("This admin account is not assigned to any institution.");
       }
 
@@ -191,9 +197,9 @@ export const useAuth = () => {
         is_staff: data.user.is_staff || false,
         is_superuser: data.user.is_superuser || false,
         university: {
-          id: university.id,
-          name: university.name,
-          code: university.code || null,
+          id: universityId,
+          name: universityName || "Institution",
+          code: typeof university === "string" ? null : (university?.code || null),
         },
       };
 
