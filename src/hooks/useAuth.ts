@@ -22,11 +22,14 @@ export const useAuth = () => {
     try {
       const { data } = await apiClient.post(API_ENDPOINTS.AUTH.LOGIN, credentials);
 
-      // Verify that the user has admin role AND is associated with a university
+      // Verify that the user has admin role or is an elevated lecturer AND is associated with a university
       const role = data?.user?.role;
+      const isStaff = data?.user?.is_staff || data?.user?.is_superuser;
       const university = data?.user?.university;
 
-      if (role !== "admin") {
+      const hasAccess = role === "admin" || (role === "lecturer" && isStaff);
+
+      if (!hasAccess) {
         throw new Error("You do not have institution admin permissions.");
       }
 
@@ -98,9 +101,12 @@ export const useAuth = () => {
       const { data } = await apiClient.get(API_ENDPOINTS.AUTH.ME);
       
       const role = data.role;
+      const isStaff = data.is_staff || data.is_superuser;
       const university = data.university;
 
-      if (role === "admin" && university) {
+      const hasAccess = role === "admin" || (role === "lecturer" && isStaff);
+
+      if (hasAccess && university) {
         const authUser: AuthUser = {
           id: data.id,
           email: data.email,

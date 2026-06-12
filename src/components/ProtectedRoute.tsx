@@ -31,7 +31,10 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 
       try {
         const cachedUser = JSON.parse(cachedUserStr);
-        if (cachedUser.role !== "admin" || !cachedUser.university) {
+        const isStaff = cachedUser.is_staff || cachedUser.is_superuser;
+        const hasAccess = cachedUser.role === "admin" || (cachedUser.role === "lecturer" && isStaff);
+
+        if (!hasAccess || !cachedUser.university) {
           router.push("/auth/login");
         }
       } catch {
