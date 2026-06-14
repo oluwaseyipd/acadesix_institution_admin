@@ -52,8 +52,8 @@ export const useAuth = () => {
         id: data.user.id,
         email: data.user.email,
         role: data.user.role,
-        first_name: data.user.first_name || "",
-        last_name: data.user.last_name || "",
+        first_name: data.user.profile?.first_name || data.user.first_name || "",
+        last_name: data.user.profile?.last_name || data.user.last_name || "",
         is_staff: data.user.is_staff || false,
         is_superuser: data.user.is_superuser || false,
         university: {
@@ -61,6 +61,7 @@ export const useAuth = () => {
           name: universityName || "Institution",
           code: typeof university === "string" ? null : (university?.code || null),
         },
+        profile: data.user.profile || null,
       };
 
       setUser(authUser);
@@ -114,8 +115,8 @@ export const useAuth = () => {
           id: data.id,
           email: data.email,
           role: data.role,
-          first_name: data.first_name || "",
-          last_name: data.last_name || "",
+          first_name: data.profile?.first_name || data.first_name || "",
+          last_name: data.profile?.last_name || data.last_name || "",
           is_staff: data.is_staff || false,
           is_superuser: data.is_superuser || false,
           university: {
@@ -123,6 +124,7 @@ export const useAuth = () => {
             name: university.name,
             code: university.code || null,
           },
+          profile: data.profile || null,
         };
         setUser(authUser);
       } else {
@@ -192,8 +194,8 @@ export const useAuth = () => {
         id: data.user.id,
         email: data.user.email,
         role: data.user.role,
-        first_name: data.user.first_name || "",
-        last_name: data.user.last_name || "",
+        first_name: data.user.profile?.first_name || data.user.first_name || "",
+        last_name: data.user.profile?.last_name || data.user.last_name || "",
         is_staff: data.user.is_staff || false,
         is_superuser: data.user.is_superuser || false,
         university: {
@@ -201,6 +203,7 @@ export const useAuth = () => {
           name: universityName || "Institution",
           code: typeof university === "string" ? null : (university?.code || null),
         },
+        profile: data.user.profile || null,
       };
 
       setUser(authUser);

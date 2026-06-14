@@ -64,20 +64,29 @@ export default function ProfileForm() {
 
     setIsSaving(true);
     try {
-      const payload = {
+      // 1. Update profile names via PATCH /api/auth/profile/
+      const profilePayload = {
         first_name: formState.firstName,
         last_name: formState.lastName,
-        email: formState.email,
       };
+      await apiClient.patch("/api/auth/profile/", profilePayload);
 
-      await apiClient.patch(API_ENDPOINTS.AUTH.ME, payload);
+      // 2. Update email via PATCH /api/auth/me/ if changed
+      if (user && formState.email !== user.email) {
+        await apiClient.patch(API_ENDPOINTS.AUTH.ME, { email: formState.email });
+      }
+
+      // 3. Refresh the authenticated user state from the API
       await refreshUser();
 
       toast.success("Profile details updated successfully.");
       setEditing(false);
     } catch (err: any) {
       console.error("Error updating profile:", err);
-      const msg = err.response?.data?.detail || "Failed to update profile details.";
+      const msg =
+        err.response?.data?.detail ||
+        err.response?.data?.email?.[0] ||
+        "Failed to update profile details.";
       toast.error(msg);
     } finally {
       setIsSaving(false);
@@ -254,7 +263,7 @@ export default function ProfileForm() {
               </label>
               <input
                 type="text"
-                value={user?.university?.name || "N/A"}
+                value={user?.profile?.university || user?.university?.name || "N/A"}
                 disabled
                 className="w-full px-4 py-3 border border-border rounded-xl text-sm bg-muted text-muted-foreground cursor-not-allowed"
               />
@@ -267,6 +276,30 @@ export default function ProfileForm() {
               <input
                 type="text"
                 value={user?.university?.code || "N/A"}
+                disabled
+                className="w-full px-4 py-3 border border-border rounded-xl text-sm bg-muted text-muted-foreground cursor-not-allowed"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                Faculty
+              </label>
+              <input
+                type="text"
+                value={user?.profile?.faculty || "N/A"}
+                disabled
+                className="w-full px-4 py-3 border border-border rounded-xl text-sm bg-muted text-muted-foreground cursor-not-allowed"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                Department
+              </label>
+              <input
+                type="text"
+                value={user?.profile?.department_name || "N/A"}
                 disabled
                 className="w-full px-4 py-3 border border-border rounded-xl text-sm bg-muted text-muted-foreground cursor-not-allowed"
               />

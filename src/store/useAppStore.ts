@@ -13,6 +13,18 @@ export interface AuthUser {
     name: string;
     code: string | null;
   } | null;
+  profile?: {
+    first_name?: string;
+    last_name?: string;
+    identification_number?: string;
+    level?: string;
+    department?: string | number | null;
+    department_name?: string | null;
+    faculty?: string | null;
+    university?: string | null;
+    avatar?: string | null;
+    avatar_url?: string | null;
+  } | null;
 }
 
 interface AppState {
