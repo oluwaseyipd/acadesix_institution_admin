@@ -122,7 +122,11 @@ export const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
       {/* User profile & Logout */}
       <div className="flex flex-col gap-3">
         {/* Profile Card */}
-        <div className="py-3 px-4 bg-brand-primary/10 hover:bg-brand-primary/15 rounded-lg transition-all duration-150">
+        <Link
+          href="/dashboard/profile"
+          onClick={() => onClose?.()}
+          className="py-3 px-4 bg-brand-primary/10 hover:bg-brand-primary/15 rounded-lg transition-all duration-150 block"
+        >
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-full bg-brand-primary flex items-center justify-center text-white text-xs font-bold shrink-0">
               <span>{displayInitials}</span>
@@ -136,7 +140,7 @@ export const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
               </span>
             </div>
           </div>
-        </div>
+        </Link>
 
         {/* Logout button */}
         <button
