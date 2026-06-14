@@ -10,6 +10,7 @@ export default function ProfileForm() {
   const { user, refreshUser } = useAuth();
   const [editing, setEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [isLoadingDetails, setIsLoadingDetails] = useState(true);
 
   const [formState, setFormState] = useState({
     firstName: "",
@@ -17,6 +18,23 @@ export default function ProfileForm() {
     email: "",
   });
 
+  // Fetch fresh user details from API on mount
+  useEffect(() => {
+    async function loadLatestDetails() {
+      setIsLoadingDetails(true);
+      try {
+        await refreshUser();
+      } catch (err) {
+        console.error("Failed to fetch latest user details:", err);
+        toast.error("Failed to fetch fresh user details from API. Displaying cached data.");
+      } finally {
+        setIsLoadingDetails(false);
+      }
+    }
+    loadLatestDetails();
+  }, [refreshUser]);
+
+  // Keep form state in sync with loaded user state
   useEffect(() => {
     if (user) {
       setFormState({
@@ -66,14 +84,58 @@ export default function ProfileForm() {
     }
   };
 
+  if (isLoadingDetails) {
+    return (
+      <div className="max-w-4xl mx-auto flex flex-col gap-6 font-sans">
+        <div className="bg-card flex flex-col rounded-2xl shadow-card overflow-hidden border border-border">
+          {/* Banner Skeleton */}
+          <div className="w-full h-32 bg-muted animate-pulse" />
+
+          {/* Profile Header Skeleton */}
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between px-8 pb-6 pt-2 gap-4 border-b border-border">
+            <div className="flex flex-col sm:flex-row items-center sm:items-end gap-4 text-center sm:text-left">
+              <div className="relative -mt-16 z-10">
+                <div className="rounded-full w-24 h-24 bg-muted animate-pulse border-4 border-card" />
+              </div>
+              <div className="space-y-2 pb-1">
+                <div className="h-6 w-40 bg-muted animate-pulse rounded" />
+                <div className="h-4 w-28 bg-muted animate-pulse rounded" />
+              </div>
+            </div>
+            <div className="pb-1">
+              <div className="h-10 w-28 bg-muted animate-pulse rounded-xl" />
+            </div>
+          </div>
+
+          {/* Form Fields Skeleton */}
+          <div className="p-8 space-y-8">
+            <div className="space-y-4">
+              <div className="h-5 w-40 bg-muted animate-pulse rounded" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <div className="h-3 w-20 bg-muted animate-pulse rounded" />
+                  <div className="h-12 w-full bg-muted animate-pulse rounded-xl" />
+                </div>
+                <div className="space-y-2">
+                  <div className="h-3 w-20 bg-muted animate-pulse rounded" />
+                  <div className="h-12 w-full bg-muted animate-pulse rounded-xl" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-4xl mx-auto flex flex-col gap-6 font-sans">
       <Toaster position="top-right" richColors />
 
       {/* Profile Card Container */}
-      <div className="bg-card flex flex-col rounded-2xl shadow-card overflow-hidden border border-border">
+      <div className="bg-card flex flex-col rounded-2xl shadow-card overflow-hidden border border-border animate-fade-in">
         {/* Banner Gradient */}
-        <div className="w-full h-32 bg-gradient-to-r from-brand-background to-brand-muted shrink-0 animate-fade-in" />
+        <div className="w-full h-32 bg-gradient-to-r from-brand-background to-brand-muted shrink-0" />
 
         {/* Profile Info Overlay Row */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between px-8 pb-6 pt-2 gap-4 border-b border-border">
