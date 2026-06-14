@@ -75,7 +75,7 @@ export default function ScopedUsersPage() {
           onClick={() => setActiveTab("student")}
           className={`px-6 py-3 text-sm font-semibold border-b-2 transition-all ${
             activeTab === "student"
-              ? "border-primary text-primary"
+              ? "border-brand-primary text-brand-primary"
               : "border-transparent text-muted-foreground hover:text-foreground"
           }`}
         >
@@ -85,7 +85,7 @@ export default function ScopedUsersPage() {
           onClick={() => setActiveTab("lecturer")}
           className={`px-6 py-3 text-sm font-semibold border-b-2 transition-all ${
             activeTab === "lecturer"
-              ? "border-primary text-primary"
+              ? "border-brand-primary text-brand-primary"
               : "border-transparent text-muted-foreground hover:text-foreground"
           }`}
         >
@@ -96,7 +96,7 @@ export default function ScopedUsersPage() {
       {loading ? (
         <div className="space-y-4">
           {[1, 2, 3].map((n) => (
-            <div key={n} className="bg-white dark:bg-card border border-border h-16 rounded-xl animate-pulse"></div>
+            <div key={n} className="bg-card border border-border h-16 rounded-xl animate-pulse"></div>
           ))}
         </div>
       ) : filteredUsers.length === 0 ? (
@@ -108,7 +108,7 @@ export default function ScopedUsersPage() {
           </p>
         </div>
       ) : (
-        <div className="overflow-hidden bg-white dark:bg-card border border-border shadow-card rounded-2xl">
+        <div className="overflow-hidden bg-card border border-border shadow-card rounded-2xl">
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-border text-left text-sm">
               <thead className="bg-zinc-50 dark:bg-zinc-900/50 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
@@ -154,7 +154,7 @@ export default function ScopedUsersPage() {
                       {!item.is_staff && activeTab === "lecturer" && (
                         <button
                           onClick={() => promoteToStaff(item.id)}
-                          className="flex items-center gap-1 bg-primary/10 text-primary hover:bg-primary/20 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors"
+                          className="flex items-center gap-1 bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/20 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors"
                         >
                           <UserCheck className="h-3 w-3" />
                           Elevate to Staff

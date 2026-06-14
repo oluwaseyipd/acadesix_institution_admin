@@ -103,7 +103,7 @@ export default function ScopedCoursesPage() {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-glow hover:bg-primary/95 transition-all"
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-primary px-4 py-2.5 text-sm font-semibold text-white shadow-glow hover:bg-brand-primary/95 transition-all"
         >
           <Plus className="h-5 w-5" />
           Add Course
@@ -113,7 +113,7 @@ export default function ScopedCoursesPage() {
       {loading ? (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {[1, 2, 3].map((n) => (
-            <div key={n} className="bg-white dark:bg-card border border-border h-48 rounded-2xl animate-pulse"></div>
+            <div key={n} className="bg-card border border-border h-48 rounded-2xl animate-pulse"></div>
           ))}
         </div>
       ) : courses.length === 0 ? (
@@ -125,7 +125,7 @@ export default function ScopedCoursesPage() {
           </p>
           <button
             onClick={() => setShowAddModal(true)}
-            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white shadow-glow hover:bg-primary/95 transition-all"
+            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-brand-primary px-4 py-2 text-sm font-semibold text-white shadow-glow hover:bg-brand-primary/95 transition-all"
           >
             <Plus className="h-4 w-4" />
             Add First Course
@@ -136,11 +136,11 @@ export default function ScopedCoursesPage() {
           {courses.map((course) => (
             <div
               key={course.id}
-              className="bg-white dark:bg-card border border-border p-6 shadow-card rounded-2xl flex flex-col justify-between hover:translate-y-[-2px] hover:shadow-card-hover transition-all"
+              className="bg-card border border-border p-6 shadow-card rounded-2xl flex flex-col justify-between hover:translate-y-[-2px] hover:shadow-card-hover transition-all"
             >
               <div>
                 <div className="flex justify-between items-start gap-4">
-                  <span className="inline-flex items-center rounded-md bg-primary/10 px-2 py-0.5 text-xs font-semibold text-primary">
+                  <span className="inline-flex items-center rounded-md bg-brand-primary/10 px-2 py-0.5 text-xs font-semibold text-brand-primary">
                     {course.code}
                   </span>
                   <span className="text-xs text-muted-foreground font-medium">
@@ -163,7 +163,7 @@ export default function ScopedCoursesPage() {
       {/* Add Course Modal */}
       {showAddModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm animate-fade-in">
-          <div className="bg-white dark:bg-card border border-border max-w-lg w-full rounded-2xl shadow-card overflow-hidden">
+          <div className="bg-card border border-border max-w-lg w-full rounded-2xl shadow-card overflow-hidden">
             <div className="p-6 border-b border-border flex items-center justify-between">
               <h3 className="text-lg font-bold text-foreground">Add New Course</h3>
               <button
@@ -187,7 +187,7 @@ export default function ScopedCoursesPage() {
                     value={formData.code}
                     onChange={handleInputChange}
                     placeholder="e.g. CS101"
-                    className="block w-full rounded-xl border border-border py-2 px-3 bg-white text-sm outline-none focus:border-primary"
+                    className="block w-full rounded-xl border border-border py-2 px-3 bg-background text-sm outline-none focus:border-brand-primary"
                   />
                 </div>
                 <div>
@@ -198,7 +198,7 @@ export default function ScopedCoursesPage() {
                     name="level"
                     value={formData.level}
                     onChange={handleInputChange}
-                    className="block w-full rounded-xl border border-border py-2 px-3 bg-white text-sm outline-none focus:border-primary"
+                    className="block w-full rounded-xl border border-border py-2 px-3 bg-background text-sm outline-none focus:border-brand-primary"
                   >
                     <option value="100">100 Level</option>
                     <option value="200">200 Level</option>
@@ -220,7 +220,7 @@ export default function ScopedCoursesPage() {
                   value={formData.title}
                   onChange={handleInputChange}
                   placeholder="e.g. Introduction to Programming"
-                  className="block w-full rounded-xl border border-border py-2 px-3 bg-white text-sm outline-none focus:border-primary"
+                  className="block w-full rounded-xl border border-border py-2 px-3 bg-background text-sm outline-none focus:border-brand-primary"
                 />
               </div>
 
@@ -233,7 +233,7 @@ export default function ScopedCoursesPage() {
                   required
                   value={formData.department}
                   onChange={handleInputChange}
-                  className="block w-full rounded-xl border border-border py-2 px-3 bg-white text-sm outline-none focus:border-primary"
+                  className="block w-full rounded-xl border border-border py-2 px-3 bg-background text-sm outline-none focus:border-brand-primary"
                 >
                   <option value="">Select Department</option>
                   {departments.map((d) => (
@@ -252,7 +252,7 @@ export default function ScopedCoursesPage() {
                   name="lecturer"
                   value={formData.lecturer}
                   onChange={handleInputChange}
-                  className="block w-full rounded-xl border border-border py-2 px-3 bg-white text-sm outline-none focus:border-primary"
+                  className="block w-full rounded-xl border border-border py-2 px-3 bg-background text-sm outline-none focus:border-brand-primary"
                 >
                   <option value="">Unassigned</option>
                   {lecturers.map((l) => (
@@ -273,7 +273,7 @@ export default function ScopedCoursesPage() {
                   value={formData.description}
                   onChange={handleInputChange}
                   placeholder="Provide details about the syllabus..."
-                  className="block w-full rounded-xl border border-border py-2 px-3 bg-white text-sm outline-none focus:border-primary"
+                  className="block w-full rounded-xl border border-border py-2 px-3 bg-background text-sm outline-none focus:border-brand-primary"
                 ></textarea>
               </div>
 
@@ -281,13 +281,13 @@ export default function ScopedCoursesPage() {
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="px-4 py-2 border border-border rounded-xl text-sm font-semibold hover:bg-zinc-50 transition-all"
+                  className="px-4 py-2 border border-border rounded-xl text-sm font-semibold hover:bg-muted transition-all"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-primary text-white rounded-xl text-sm font-semibold shadow-glow hover:bg-primary/95 transition-all"
+                  className="px-4 py-2 bg-brand-primary text-white rounded-xl text-sm font-semibold shadow-glow hover:bg-brand-primary/95 transition-all"
                 >
                   Create Course
                 </button>

@@ -42,7 +42,7 @@ export default function FacultiesDeptsPage() {
       {loading ? (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {[1, 2, 3].map((n) => (
-            <div key={n} className="bg-white dark:bg-card border border-border p-6 rounded-2xl h-48 animate-pulse space-y-4">
+            <div key={n} className="bg-card border border-border p-6 rounded-2xl h-48 animate-pulse space-y-4">
               <div className="h-6 w-1/3 bg-muted rounded"></div>
               <div className="h-4 w-2/3 bg-muted rounded"></div>
               <div className="h-4 w-1/2 bg-muted rounded"></div>
@@ -64,12 +64,12 @@ export default function FacultiesDeptsPage() {
             return (
               <div
                 key={faculty.id}
-                className="bg-white dark:bg-card border border-border shadow-card rounded-2xl overflow-hidden"
+                className="bg-card border border-border shadow-card rounded-2xl overflow-hidden"
               >
                 {/* Faculty Header */}
                 <div className="bg-zinc-50 dark:bg-zinc-900/50 p-6 border-b border-border flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-primary/10 rounded-lg text-primary">
+                    <div className="p-2 bg-brand-primary/10 rounded-lg text-brand-primary">
                       <School className="h-5 w-5" />
                     </div>
                     <div>

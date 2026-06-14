@@ -88,7 +88,7 @@ export default function DashboardOverview() {
           return (
             <div
               key={card.name}
-              className="bg-white dark:bg-card border border-border p-6 shadow-card rounded-2xl relative overflow-hidden transition-all hover:translate-y-[-2px] hover:shadow-card-hover"
+              className="bg-card border border-border p-6 shadow-card rounded-2xl relative overflow-hidden transition-all hover:translate-y-[-2px] hover:shadow-card-hover"
             >
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium text-muted-foreground">{card.name}</span>
@@ -110,7 +110,7 @@ export default function DashboardOverview() {
 
       {/* Quick shortcuts */}
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-        <div className="bg-white dark:bg-card border border-border p-6 shadow-card rounded-2xl space-y-4">
+        <div className="bg-card border border-border p-6 shadow-card rounded-2xl space-y-4">
           <h2 className="text-lg font-bold text-foreground">Operational Tasks</h2>
           <p className="text-sm text-muted-foreground">
             Complete high priority setups and audits for your campus.
@@ -118,21 +118,21 @@ export default function DashboardOverview() {
           <div className="divide-y divide-border text-sm">
             <Link
               href="/dashboard/users"
-              className="flex items-center justify-between py-3 hover:text-primary transition-colors"
+              className="flex items-center justify-between py-3 hover:text-brand-primary transition-colors"
             >
               <span>Verify elevated lecturer permissions</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href="/dashboard/courses"
-              className="flex items-center justify-between py-3 hover:text-primary transition-colors"
+              className="flex items-center justify-between py-3 hover:text-brand-primary transition-colors"
             >
               <span>Upload course syllabi and attachments</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href="/dashboard/faculties"
-              className="flex items-center justify-between py-3 hover:text-primary transition-colors"
+              className="flex items-center justify-between py-3 hover:text-brand-primary transition-colors"
             >
               <span>Add new departments or change associations</span>
               <ArrowRight className="h-4 w-4" />
@@ -140,7 +140,7 @@ export default function DashboardOverview() {
           </div>
         </div>
 
-        <div className="bg-white dark:bg-card border border-border p-6 shadow-card rounded-2xl flex flex-col justify-center gap-4">
+        <div className="bg-card border border-border p-6 shadow-card rounded-2xl flex flex-col justify-center gap-4">
           <h2 className="text-lg font-bold text-foreground">Campus Portal Scope</h2>
           <div className="rounded-xl border border-border bg-zinc-50/50 dark:bg-zinc-900/50 p-4 space-y-2">
             <div className="flex justify-between text-sm">
@@ -153,7 +153,7 @@ export default function DashboardOverview() {
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Scope Access:</span>
-              <span className="font-semibold text-primary">Institution Administration Only</span>
+              <span className="font-semibold text-brand-primary">Institution Administration Only</span>
             </div>
           </div>
         </div>
